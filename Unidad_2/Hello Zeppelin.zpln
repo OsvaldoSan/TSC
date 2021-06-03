@@ -1,0 +1,909 @@
+﻿{
+  "paragraphs": [
+    {
+      "text": "import org.apache.spark.{SparkConf, SparkContext}\nimport org.apache.spark.sql.{Column, SparkSession, functions => F,SQLContext}",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:31:30+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.{SparkConf, SparkContext}\nimport org.apache.spark.sql.{Column, SparkSession, functions=>F, SQLContext}\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622512435988_1985241077",
+      "id": "paragraph_1622512435988_1985241077",
+      "dateCreated": "2021-06-01T01:53:55+0000",
+      "dateStarted": "2021-06-01T02:31:31+0000",
+      "dateFinished": "2021-06-01T02:31:31+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:214"
+    },
+    {
+      "text": "val conf = new SparkConf().setMaster(\"local\").setAppName(\"Fraud\")\nval spark = SparkSession.builder()\n  .config(conf = conf)\n  .appName(\"Fraud\")\n  .getOrCreate()",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:01:17+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mconf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.SparkConf\u001b[0m = org.apache.spark.SparkConf@95bbb6f\n\u001b[1m\u001b[34mspark\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.SparkSession\u001b[0m = org.apache.spark.sql.SparkSession@865bdc3\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622512714032_789078563",
+      "id": "paragraph_1622512714032_789078563",
+      "dateCreated": "2021-06-01T01:58:34+0000",
+      "dateStarted": "2021-06-01T02:01:17+0000",
+      "dateFinished": "2021-06-01T02:01:18+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:215"
+    },
+    {
+      "text": "sc.setLogLevel(\"OFF\")",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:01:30+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622512841685_157182092",
+      "id": "paragraph_1622512841685_157182092",
+      "dateCreated": "2021-06-01T02:00:41+0000",
+      "dateStarted": "2021-06-01T02:01:30+0000",
+      "dateFinished": "2021-06-01T02:01:31+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:216"
+    },
+    {
+      "text": "val path = List(\"hdfs:///chicago/chicago_taxi_trips_2016_01.csv\",\n \"hdfs:///chicago/chicago_taxi_trips_2016_02.csv\",\n \"hdfs:///chicago/chicago_taxi_trips_2016_03.csv\",\n \"hdfs:///chicago/chicago_taxi_trips_2016_04.csv\",\n \"hdfs:///chicago/chicago_taxi_trips_2016_05.csv\",\n \"hdfs:///chicago/chicago_taxi_trips_2016_06.csv\",\n \"hdfs:///chicago/chicago_taxi_trips_2016_07.csv\",\n \"hdfs:///chicago/chicago_taxi_trips_2016_08.csv\",\n \"hdfs:///chicago/chicago_taxi_trips_2016_09.csv\",\n \"hdfs:///chicago/chicago_taxi_trips_2016_10.csv\",\n \"hdfs:///chicago/chicago_taxi_trips_2016_11.csv\",\n \"hdfs:///chicago/chicago_taxi_trips_2016_12.csv\")",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:18:14+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mpath\u001b[0m: \u001b[1m\u001b[32mList[String]\u001b[0m = List(hdfs:///chicago/chicago_taxi_trips_2016_01.csv, hdfs:///chicago/chicago_taxi_trips_2016_02.csv, hdfs:///chicago/chicago_taxi_trips_2016_03.csv, hdfs:///chicago/chicago_taxi_trips_2016_04.csv, hdfs:///chicago/chicago_taxi_trips_2016_05.csv, hdfs:///chicago/chicago_taxi_trips_2016_06.csv, hdfs:///chicago/chicago_taxi_trips_2016_07.csv, hdfs:///chicago/chicago_taxi_trips_2016_08.csv, hdfs:///chicago/chicago_taxi_trips_2016_09.csv, hdfs:///chicago/chicago_taxi_trips_2016_10.csv, hdfs:///chicago/chicago_taxi_trips_2016_11.csv, hdfs:///chicago/chicago_taxi_trips_2016_12.csv)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622512896270_688145279",
+      "id": "paragraph_1622512896270_688145279",
+      "dateCreated": "2021-06-01T02:01:36+0000",
+      "dateStarted": "2021-06-01T02:18:14+0000",
+      "dateFinished": "2021-06-01T02:18:14+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:217"
+    },
+    {
+      "text": "val ldf = path.map(x=> spark.read.option(\"header\", \"true\").csv(x))\n",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:18:18+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mldf\u001b[0m: \u001b[1m\u001b[32mList[org.apache.spark.sql.DataFrame]\u001b[0m = List([taxi_id: string, trip_start_timestamp: string ... 18 more fields], [taxi_id: string, trip_start_timestamp: string ... 18 more fields], [taxi_id: string, trip_start_timestamp: string ... 18 more fields], [taxi_id: string, trip_start_timestamp: string ... 18 more fields], [taxi_id: string, trip_start_timestamp: string ... 18 more fields], [taxi_id: string, trip_start_timestamp: string ... 18 more fields], [taxi_id: string, trip_start_timestamp: string ... 18 more fields], [taxi_id: string, trip_start_timestamp: string ... 18 more fields], [taxi_id: string, trip_start_timestamp: string ... 18 more fields], [taxi_id: string, trip_start_timestamp: string ... 18 more fields], [taxi_id: string, trip_start_timestamp: st...\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-a.c.bigdatita-312200.internal:44869/jobs/job?id=28",
+              "$$hashKey": "object:912"
+            },
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-a.c.bigdatita-312200.internal:44869/jobs/job?id=29",
+              "$$hashKey": "object:913"
+            },
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-a.c.bigdatita-312200.internal:44869/jobs/job?id=30",
+              "$$hashKey": "object:914"
+            },
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-a.c.bigdatita-312200.internal:44869/jobs/job?id=31",
+              "$$hashKey": "object:915"
+            },
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-a.c.bigdatita-312200.internal:44869/jobs/job?id=32",
+              "$$hashKey": "object:916"
+            },
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-a.c.bigdatita-312200.internal:44869/jobs/job?id=33",
+              "$$hashKey": "object:917"
+            },
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-a.c.bigdatita-312200.internal:44869/jobs/job?id=34",
+              "$$hashKey": "object:918"
+            },
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-a.c.bigdatita-312200.internal:44869/jobs/job?id=35",
+              "$$hashKey": "object:919"
+            },
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-a.c.bigdatita-312200.internal:44869/jobs/job?id=36",
+              "$$hashKey": "object:920"
+            },
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-a.c.bigdatita-312200.internal:44869/jobs/job?id=37",
+              "$$hashKey": "object:921"
+            },
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-a.c.bigdatita-312200.internal:44869/jobs/job?id=38",
+              "$$hashKey": "object:922"
+            },
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-a.c.bigdatita-312200.internal:44869/jobs/job?id=39",
+              "$$hashKey": "object:923"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622512882588_441602604",
+      "id": "paragraph_1622512882588_441602604",
+      "dateCreated": "2021-06-01T02:01:22+0000",
+      "dateStarted": "2021-06-01T02:18:18+0000",
+      "dateFinished": "2021-06-01T02:18:20+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:218"
+    },
+    {
+      "text": "var df = ldf.reduce((x,y)=>x.union(y))",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:18:21+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [taxi_id: string, trip_start_timestamp: string ... 18 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622512955332_1416937902",
+      "id": "paragraph_1622512955332_1416937902",
+      "dateCreated": "2021-06-01T02:02:35+0000",
+      "dateStarted": "2021-06-01T02:18:23+0000",
+      "dateFinished": "2021-06-01T02:18:23+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:219"
+    },
+    {
+      "text": "df.count()",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:10:23+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mres11\u001b[0m: \u001b[1m\u001b[32mLong\u001b[0m = 19866157\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-a.c.bigdatita-312200.internal:44869/jobs/job?id=27",
+              "$$hashKey": "object:1053"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622512992342_1781897883",
+      "id": "paragraph_1622512992342_1781897883",
+      "dateCreated": "2021-06-01T02:03:12+0000",
+      "dateStarted": "2021-06-01T02:10:24+0000",
+      "dateFinished": "2021-06-01T02:10:36+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:220"
+    },
+    {
+      "text": "df.printSchema()",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:18:28+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- taxi_id: string (nullable = true)\n |-- trip_start_timestamp: string (nullable = true)\n |-- trip_end_timestamp: string (nullable = true)\n |-- trip_seconds: string (nullable = true)\n |-- trip_miles: string (nullable = true)\n |-- pickup_census_tract: string (nullable = true)\n |-- dropoff_census_tract: string (nullable = true)\n |-- pickup_community_area: string (nullable = true)\n |-- dropoff_community_area: string (nullable = true)\n |-- fare: string (nullable = true)\n |-- tips: string (nullable = true)\n |-- tolls: string (nullable = true)\n |-- extras: string (nullable = true)\n |-- trip_total: string (nullable = true)\n |-- payment_type: string (nullable = true)\n |-- company: string (nullable = true)\n |-- pickup_latitude: string (nullable = true)\n |-- pickup_longitude: string (nullable = true)\n |-- dropoff_latitude: string (nullable = true)\n |-- dropoff_longitude: string (nullable = true)\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622513424064_1010304017",
+      "id": "paragraph_1622513424064_1010304017",
+      "dateCreated": "2021-06-01T02:10:24+0000",
+      "dateStarted": "2021-06-01T02:18:28+0000",
+      "dateFinished": "2021-06-01T02:18:28+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:221"
+    },
+    {
+      "text": "df = df.withColumn(\"trip_start_timestamp\",F.to_timestamp(F.col(\"trip_start_timestamp\")))\ndf = df.withColumn(\"trip_end_timestamp\",F.to_timestamp(F.col(\"trip_end_timestamp\")))",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:18:32+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "df: org.apache.spark.sql.DataFrame = [taxi_id: string, trip_start_timestamp: timestamp ... 18 more fields]\ndf: org.apache.spark.sql.DataFrame = [taxi_id: string, trip_start_timestamp: timestamp ... 18 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622513446871_754470938",
+      "id": "paragraph_1622513446871_754470938",
+      "dateCreated": "2021-06-01T02:10:46+0000",
+      "dateStarted": "2021-06-01T02:18:32+0000",
+      "dateFinished": "2021-06-01T02:18:32+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:222"
+    },
+    {
+      "text": "df.printSchema()",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:18:35+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- taxi_id: string (nullable = true)\n |-- trip_start_timestamp: timestamp (nullable = true)\n |-- trip_end_timestamp: timestamp (nullable = true)\n |-- trip_seconds: string (nullable = true)\n |-- trip_miles: string (nullable = true)\n |-- pickup_census_tract: string (nullable = true)\n |-- dropoff_census_tract: string (nullable = true)\n |-- pickup_community_area: string (nullable = true)\n |-- dropoff_community_area: string (nullable = true)\n |-- fare: string (nullable = true)\n |-- tips: string (nullable = true)\n |-- tolls: string (nullable = true)\n |-- extras: string (nullable = true)\n |-- trip_total: string (nullable = true)\n |-- payment_type: string (nullable = true)\n |-- company: string (nullable = true)\n |-- pickup_latitude: string (nullable = true)\n |-- pickup_longitude: string (nullable = true)\n |-- dropoff_latitude: string (nullable = true)\n |-- dropoff_longitude: string (nullable = true)\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622513482723_1121550161",
+      "id": "paragraph_1622513482723_1121550161",
+      "dateCreated": "2021-06-01T02:11:22+0000",
+      "dateStarted": "2021-06-01T02:18:35+0000",
+      "dateFinished": "2021-06-01T02:18:36+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:223"
+    },
+    {
+      "text": "val feat = List(\"taxi_id\",\n       \"trip_start_timestamp\",\n       \"trip_seconds\",\n       \"trip_miles\",\n       \"trip_total\",\n      \"payment_type\")",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:18:41+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mfeat\u001b[0m: \u001b[1m\u001b[32mList[String]\u001b[0m = List(taxi_id, trip_start_timestamp, trip_seconds, trip_miles, trip_total, payment_type)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622513530226_113487257",
+      "id": "paragraph_1622513530226_113487257",
+      "dateCreated": "2021-06-01T02:12:10+0000",
+      "dateStarted": "2021-06-01T02:18:41+0000",
+      "dateFinished": "2021-06-01T02:18:41+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:224"
+    },
+    {
+      "text": "df = df.select(feat.head, feat.tail: _*)\n\n\n",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:18:59+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "df: org.apache.spark.sql.DataFrame = [taxi_id: string, trip_start_timestamp: timestamp ... 4 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622513554146_682336349",
+      "id": "paragraph_1622513554146_682336349",
+      "dateCreated": "2021-06-01T02:12:34+0000",
+      "dateStarted": "2021-06-01T02:18:59+0000",
+      "dateFinished": "2021-06-01T02:18:59+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:225"
+    },
+    {
+      "text": "\nfor((x,y) <-df.columns.filter(x => (x contains \"trip\") && (x!=\"trip_start_timestamp\")) zip df.columns.filter(x => (x contains \"trip\") && (x!=\"trip_start_timestamp\")).map(v=>F.col(v).cast(\"double\")))\n    df = df.withColumn(x,y)",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:28:07+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622513599753_1611324054",
+      "id": "paragraph_1622513599753_1611324054",
+      "dateCreated": "2021-06-01T02:13:19+0000",
+      "dateStarted": "2021-06-01T02:28:07+0000",
+      "dateFinished": "2021-06-01T02:28:08+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:226"
+    },
+    {
+      "text": "df.printSchema()",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:28:13+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- taxi_id: string (nullable = true)\n |-- trip_start_timestamp: timestamp (nullable = true)\n |-- trip_seconds: double (nullable = true)\n |-- trip_miles: double (nullable = true)\n |-- trip_total: double (nullable = true)\n |-- payment_type: string (nullable = true)\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622513952066_1584475373",
+      "id": "paragraph_1622513952066_1584475373",
+      "dateCreated": "2021-06-01T02:19:12+0000",
+      "dateStarted": "2021-06-01T02:28:13+0000",
+      "dateFinished": "2021-06-01T02:28:13+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:227"
+    },
+    {
+      "text": "df.registerTempTable(\"chicago\")\n",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:31:51+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[33mwarning: \u001b[0mthere was one deprecation warning (since 2.0.0); for details, enable `:setting -deprecation' or `:replay -deprecation'\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622514650411_1506198747",
+      "id": "paragraph_1622514650411_1506198747",
+      "dateCreated": "2021-06-01T02:30:50+0000",
+      "dateStarted": "2021-06-01T02:31:51+0000",
+      "dateFinished": "2021-06-01T02:31:51+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:228"
+    },
+    {
+      "text": "%sql\nselect payment_type, year(trip_start_timestamp)*100+month(trip_start_timestamp) as mes,sum(trip_total) as total from chicago \nwhere payment_type =\"${tipo=Cash,Cash|Credit Card}\"\ngroup by payment_type,\nyear(trip_start_timestamp)*100+month(trip_start_timestamp) order by mes",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:45:02+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "scatterChart",
+              "height": 647.56,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {
+                    "columns": [
+                      {
+                        "name": "mes0",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "total1",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      }
+                    ],
+                    "scrollFocus": {},
+                    "selection": [],
+                    "grouping": {
+                      "grouping": [],
+                      "aggregations": [],
+                      "rowExpandedStates": {}
+                    },
+                    "treeView": {},
+                    "pagination": {
+                      "paginationCurrentPage": 1,
+                      "paginationPageSize": 250
+                    }
+                  },
+                  "tableColumnTypeState": {
+                    "names": {
+                      "payment_type": "string",
+                      "mes": "string",
+                      "total": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "multiBarChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "hide",
+                  "stacked": true
+                },
+                "stackedAreaChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "mes",
+                  "index": 1,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [
+                {
+                  "name": "payment_type",
+                  "index": 0,
+                  "aggr": "sum"
+                }
+              ],
+              "values": [
+                {
+                  "name": "total",
+                  "index": 2,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql",
+        "runOnSelectionChange": true
+      },
+      "settings": {
+        "params": {
+          "tipo": "Credit Card"
+        },
+        "forms": {
+          "tipo": {
+            "type": "Select",
+            "options": [
+              {
+                "value": "Cash",
+                "$$hashKey": "object:608"
+              },
+              {
+                "value": "Credit Card",
+                "$$hashKey": "object:609"
+              }
+            ],
+            "name": "tipo",
+            "displayName": "tipo",
+            "defaultValue": "Cash",
+            "hidden": false,
+            "$$hashKey": "object:594"
+          }
+        }
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "payment_type\tmes\ttotal\nCredit Card\t201601\t1.5504579769999407E7\nCredit Card\t201602\t1.6697087699999196E7\nCredit Card\t201603\t1.9556855529998578E7\nCredit Card\t201604\t2.0490129359998643E7\nCredit Card\t201605\t2.1057821139998555E7\nCredit Card\t201606\t2.1179562149998635E7\nCredit Card\t201607\t1.707900303999942E7\nCredit Card\t201608\t1.4424796139999913E7\nCredit Card\t201609\t1.3009041229999898E7\nCredit Card\t201610\t1.5413313759999726E7\nCredit Card\t201611\t1.3000311769999988E7\nCredit Card\t201612\t1.0159819190000143E7\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-a.c.bigdatita-312200.internal:44869/jobs/job?id=43",
+              "$$hashKey": "object:1419"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622514493511_883826841",
+      "id": "paragraph_1622514493511_883826841",
+      "dateCreated": "2021-06-01T02:28:13+0000",
+      "dateStarted": "2021-06-01T02:43:23+0000",
+      "dateFinished": "2021-06-01T02:43:53+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:229"
+    },
+    {
+      "text": "%sql\n",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-01T02:32:25+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622514745133_672967109",
+      "id": "paragraph_1622514745133_672967109",
+      "dateCreated": "2021-06-01T02:32:25+0000",
+      "status": "READY",
+      "$$hashKey": "object:230"
+    }
+  ],
+  "name": "Hello Zeppelin",
+  "id": "2G9YD4N6A",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.9.0-preview2",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {},
+  "path": "/Hello Zeppelin"
+}
