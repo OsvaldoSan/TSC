@@ -1,0 +1,957 @@
+﻿{
+  "paragraphs": [
+    {
+      "text": "import org.apache.spark.sql.{SparkSession,functions=>F}\nimport org.apache.spark.sql.Column\nimport org.apache.spark.ml.feature.VectorAssembler\nimport org.apache.spark.ml.classification.LogisticRegression\nimport org.apache.spark.ml.evaluation.BinaryClassificationEvaluator",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:24:32+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.sql.{SparkSession, functions=>F}\nimport org.apache.spark.sql.Column\nimport org.apache.spark.ml.feature.VectorAssembler\nimport org.apache.spark.ml.classification.LogisticRegression\nimport org.apache.spark.ml.evaluation.BinaryClassificationEvaluator\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622678023358_1884298233",
+      "id": "paragraph_1622678023358_1884298233",
+      "dateCreated": "2021-06-02T23:53:43+0000",
+      "dateStarted": "2021-06-03T02:24:32+0000",
+      "dateFinished": "2021-06-03T02:24:32+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:17427"
+    },
+    {
+      "text": "var df = spark.read.option(\"header\", \"true\").csv(\"hdfs://bigdatita-m:8020/chicago\")",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:24:38+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mdf\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [taxi_id: string, trip_start_timestamp: string ... 18 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-c.c.bigdatita-312200.internal:38589/jobs/job?id=17",
+              "$$hashKey": "object:18172"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622678133159_193729417",
+      "id": "paragraph_1622678133159_193729417",
+      "dateCreated": "2021-06-02T23:55:33+0000",
+      "dateStarted": "2021-06-03T02:24:38+0000",
+      "dateFinished": "2021-06-03T02:24:38+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17428"
+    },
+    {
+      "text": "df.count()",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:22:10+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mres167\u001b[0m: \u001b[1m\u001b[32mLong\u001b[0m = 19866157\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-c.c.bigdatita-312200.internal:38589/jobs/job?id=16",
+              "$$hashKey": "object:18230"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622678525997_1870458651",
+      "id": "paragraph_1622678525997_1870458651",
+      "dateCreated": "2021-06-03T00:02:05+0000",
+      "dateStarted": "2021-06-03T02:22:10+0000",
+      "dateFinished": "2021-06-03T02:22:19+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17429"
+    },
+    {
+      "text": "df = df.withColumn(\"fh\",F.to_timestamp(F.col(\"trip_start_timestamp\")))\ndf = df.withColumn(\"week\",F.weekofyear(F.col(\"fh\")))",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:24:40+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "df: org.apache.spark.sql.DataFrame = [taxi_id: string, trip_start_timestamp: string ... 20 more fields]\ndf: org.apache.spark.sql.DataFrame = [taxi_id: string, trip_start_timestamp: string ... 20 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622678736051_750838479",
+      "id": "paragraph_1622678736051_750838479",
+      "dateCreated": "2021-06-03T00:05:36+0000",
+      "dateStarted": "2021-06-03T02:24:41+0000",
+      "dateFinished": "2021-06-03T02:24:41+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17430"
+    },
+    {
+      "text": "df = df.select(\"taxi_id\",\"week\",\"trip_total\",\"tips\").withColumn(\"n\",F.lit(1))",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:24:42+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "df: org.apache.spark.sql.DataFrame = [taxi_id: string, week: int ... 3 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622678816244_576885093",
+      "id": "paragraph_1622678816244_576885093",
+      "dateCreated": "2021-06-03T00:06:56+0000",
+      "dateStarted": "2021-06-03T02:24:42+0000",
+      "dateFinished": "2021-06-03T02:24:42+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17431"
+    },
+    {
+      "text": "val cat = df.select(\"week\").dropDuplicates()",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:24:44+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mcat\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.Dataset[org.apache.spark.sql.Row]\u001b[0m = [week: int]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622678894358_871124420",
+      "id": "paragraph_1622678894358_871124420",
+      "dateCreated": "2021-06-03T00:08:14+0000",
+      "dateStarted": "2021-06-03T02:24:44+0000",
+      "dateFinished": "2021-06-03T02:24:44+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17432"
+    },
+    {
+      "text": "val anclas = cat.agg(F.min(\"week\"),F.max(\"week\")).first.toSeq",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:24:46+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34manclas\u001b[0m: \u001b[1m\u001b[32mSeq[Any]\u001b[0m = WrappedArray(1, 53)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-c.c.bigdatita-312200.internal:38589/jobs/job?id=18",
+              "$$hashKey": "object:18444"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622678981820_321567109",
+      "id": "paragraph_1622678981820_321567109",
+      "dateCreated": "2021-06-03T00:09:41+0000",
+      "dateStarted": "2021-06-03T02:24:47+0000",
+      "dateFinished": "2021-06-03T02:25:19+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17433"
+    },
+    {
+      "text": "val wini:Int = anclas(0).asInstanceOf[Int]\nval wfin:Int = anclas(1).asInstanceOf[Int]",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:24:48+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mwini\u001b[0m: \u001b[1m\u001b[32mInt\u001b[0m = 1\n\u001b[1m\u001b[34mwfin\u001b[0m: \u001b[1m\u001b[32mInt\u001b[0m = 53\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622679060123_927778755",
+      "id": "paragraph_1622679060123_927778755",
+      "dateCreated": "2021-06-03T00:11:00+0000",
+      "dateStarted": "2021-06-03T02:24:48+0000",
+      "dateFinished": "2021-06-03T02:25:19+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17434"
+    },
+    {
+      "text": "val vobs:Int = 8\nval vdes:Int = 3\nval anclai:Int = wini+vobs-1\nval anclaf:Int = wfin-vdes\nprintln(anclai,anclaf )",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:24:50+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "(8,50)\n\u001b[1m\u001b[34mvobs\u001b[0m: \u001b[1m\u001b[32mInt\u001b[0m = 8\n\u001b[1m\u001b[34mvdes\u001b[0m: \u001b[1m\u001b[32mInt\u001b[0m = 3\n\u001b[1m\u001b[34manclai\u001b[0m: \u001b[1m\u001b[32mInt\u001b[0m = 8\n\u001b[1m\u001b[34manclaf\u001b[0m: \u001b[1m\u001b[32mInt\u001b[0m = 50\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622679619781_291302513",
+      "id": "paragraph_1622679619781_291302513",
+      "dateCreated": "2021-06-03T00:20:19+0000",
+      "dateStarted": "2021-06-03T02:25:19+0000",
+      "dateFinished": "2021-06-03T02:25:19+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17435"
+    },
+    {
+      "text": "df = df.withColumn(\"ratio_tips\",F.col(\"tips\")/F.col(\"trip_total\"))",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:24:52+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "df: org.apache.spark.sql.DataFrame = [taxi_id: string, week: int ... 4 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622680081895_1264670145",
+      "id": "paragraph_1622680081895_1264670145",
+      "dateCreated": "2021-06-03T00:28:01+0000",
+      "dateStarted": "2021-06-03T02:25:19+0000",
+      "dateFinished": "2021-06-03T02:25:19+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17436"
+    },
+    {
+      "text": "val varc =Seq(\"trip_total\",\"tips\",\"n\",\"ratio_tips\")\nfor (v <- varc)\n    df = df.withColumn(v,F.col(v).cast(\"Double\"))",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:24:57+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mvarc\u001b[0m: \u001b[1m\u001b[32mSeq[String]\u001b[0m = List(trip_total, tips, n, ratio_tips)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622680277348_30033676",
+      "id": "paragraph_1622680277348_30033676",
+      "dateCreated": "2021-06-03T00:31:17+0000",
+      "dateStarted": "2021-06-03T02:25:19+0000",
+      "dateFinished": "2021-06-03T02:25:19+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17437"
+    },
+    {
+      "text": "def ing_X(df:org.apache.spark.sql.DataFrame,varc:Seq[String],k:Int,ancla:Int):org.apache.spark.sql.DataFrame = {\n    var aux:org.apache.spark.sql.DataFrame = df.filter((df(\"week\")<=ancla)&&(df(\"week\")>=(ancla-k+1)))\n    val funcs: Seq[Column=>Column] = Seq(F.min,F.max,F.sum,F.avg,F.stddev)\n    val nombres =  Seq(\"minimo\",\"maximo\",\"suma\",\"media\",\"desv\")\n    val exprs = for{c<-varc;(f,a)<-funcs zip nombres} yield f(F.col(c)).alias(s\"x_${a}_${c}_$k\")\n    aux.groupBy(\"taxi_id\").agg(exprs.head,exprs.tail: _*).withColumn(\"ancla\",F.lit(ancla))\n}",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:25:40+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34ming_X\u001b[0m: \u001b[1m\u001b[32m(df: org.apache.spark.sql.DataFrame, varc: Seq[String], k: Int, ancla: Int)org.apache.spark.sql.DataFrame\u001b[0m\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622680736558_1965186651",
+      "id": "paragraph_1622680736558_1965186651",
+      "dateCreated": "2021-06-03T00:38:56+0000",
+      "dateStarted": "2021-06-03T02:25:41+0000",
+      "dateFinished": "2021-06-03T02:25:41+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17438"
+    },
+    {
+      "text": "val step:Int = 2",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:25:44+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mstep\u001b[0m: \u001b[1m\u001b[32mInt\u001b[0m = 2\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622680784675_465747110",
+      "id": "paragraph_1622680784675_465747110",
+      "dateCreated": "2021-06-03T00:39:44+0000",
+      "dateStarted": "2021-06-03T02:25:44+0000",
+      "dateFinished": "2021-06-03T02:25:44+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17439"
+    },
+    {
+      "text": "val X:org.apache.spark.sql.DataFrame = (anclai to anclaf).map(ancla=>(step to vobs by step).toList.map(k=>ing_X(df,varc,k,ancla)).reduce(_.join(_,Seq(\"taxi_id\",\"ancla\"),\"outer\"))).reduce(_.union(_))",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:25:46+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mX\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [taxi_id: string, ancla: int ... 80 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622681346451_1729959993",
+      "id": "paragraph_1622681346451_1729959993",
+      "dateCreated": "2021-06-03T00:49:06+0000",
+      "dateStarted": "2021-06-03T02:25:46+0000",
+      "dateFinished": "2021-06-03T02:25:51+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17440"
+    },
+    {
+      "text": "def ing_y(df:org.apache.spark.sql.DataFrame,vdes:Int,ancla:Int):org.apache.spark.sql.DataFrame = {\n    var aux:org.apache.spark.sql.DataFrame = df.filter((df(\"week\")>ancla)&&(df(\"week\")<=(ancla+vdes))).select(\"taxi_id\").dropDuplicates()\n    aux.withColumn(\"target\",F.lit(0)).withColumn(\"ancla\",F.lit(ancla))\n}",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:25:52+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34ming_y\u001b[0m: \u001b[1m\u001b[32m(df: org.apache.spark.sql.DataFrame, vdes: Int, ancla: Int)org.apache.spark.sql.DataFrame\u001b[0m\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622682627828_821416311",
+      "id": "paragraph_1622682627828_821416311",
+      "dateCreated": "2021-06-03T01:10:27+0000",
+      "dateStarted": "2021-06-03T02:25:52+0000",
+      "dateFinished": "2021-06-03T02:25:53+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17441"
+    },
+    {
+      "text": "\nval y:org.apache.spark.sql.DataFrame = (anclai to anclaf).toList.map(ancla=>ing_y(df,vdes,ancla)).reduce(_.union(_))",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:26:07+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34my\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [taxi_id: string, target: int ... 1 more field]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622682812357_1971812398",
+      "id": "paragraph_1622682812357_1971812398",
+      "dateCreated": "2021-06-03T01:13:32+0000",
+      "dateStarted": "2021-06-03T02:26:07+0000",
+      "dateFinished": "2021-06-03T02:26:08+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17442"
+    },
+    {
+      "text": "val tad:org.apache.spark.sql.DataFrame = X.join(y,Seq(\"taxi_id\",\"ancla\"),\"left\").na.fill(1,Seq(\"target\"))",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:26:11+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mtad\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [taxi_id: string, ancla: int ... 81 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622682969851_146842571",
+      "id": "paragraph_1622682969851_146842571",
+      "dateCreated": "2021-06-03T01:16:09+0000",
+      "dateStarted": "2021-06-03T02:26:11+0000",
+      "dateFinished": "2021-06-03T02:26:11+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17443"
+    },
+    {
+      "text": "val assembler = new VectorAssembler()\n.setInputCols(tad.columns.filter(_.slice(0,2)==\"x_\"))\n.setOutputCol(\"features\")\n",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:26:21+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34massembler\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.ml.feature.VectorAssembler\u001b[0m = vecAssembler_d3d4c625993c\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622686393599_109071943",
+      "id": "paragraph_1622686393599_109071943",
+      "dateCreated": "2021-06-03T02:13:13+0000",
+      "dateStarted": "2021-06-03T02:26:21+0000",
+      "dateFinished": "2021-06-03T02:26:22+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17444"
+    },
+    {
+      "text": "val salida = assembler.transform(tad)",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:26:26+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34msalida\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m = [taxi_id: string, ancla: int ... 82 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622686763239_1299459073",
+      "id": "paragraph_1622686763239_1299459073",
+      "dateCreated": "2021-06-03T02:19:23+0000",
+      "dateStarted": "2021-06-03T02:26:26+0000",
+      "dateFinished": "2021-06-03T02:26:27+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17445"
+    },
+    {
+      "text": "val mod = new LogisticRegression()\n.setFeaturesCol(\"features\")\n.setLabelCol(\"target\")",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T05:28:20+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mmod\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.ml.classification.LogisticRegression\u001b[0m = logreg_4061aa87e5fd\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622686873932_367731146",
+      "id": "paragraph_1622686873932_367731146",
+      "dateCreated": "2021-06-03T02:21:13+0000",
+      "dateStarted": "2021-06-03T02:28:38+0000",
+      "dateFinished": "2021-06-03T02:28:38+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:17446"
+    },
+    {
+      "text": "salida.write.parquet(\"hdfs://bigdatita-m:8020/chicago/churn.parquet\")\n//val salida_modelo = mod.fit(salida)",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:34:59+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://bigdatita-m.us-central1-c.c.bigdatita-312200.internal:38589/jobs/job?id=20",
+              "$$hashKey": "object:19171"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622686893823_1516518595",
+      "id": "paragraph_1622686893823_1516518595",
+      "dateCreated": "2021-06-03T02:21:33+0000",
+      "dateStarted": "2021-06-03T02:34:59+0000",
+      "dateFinished": "2021-06-03T02:34:11+0000",
+      "status": "RUNNING",
+      "$$hashKey": "object:17447"
+    },
+    {
+      "text": "mod",
+      "user": "anonymous",
+      "dateUpdated": "2021-06-03T02:29:24+0000",
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1622687296796_515343290",
+      "id": "paragraph_1622687296796_515343290",
+      "dateCreated": "2021-06-03T02:28:16+0000",
+      "status": "READY",
+      "$$hashKey": "object:17448"
+    }
+  ],
+  "name": "Ingeniería taxi 2",
+  "id": "2G7VUPK33",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.9.0-preview2",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {},
+  "path": "/Ingeniería taxi 2"
+}
